@@ -1,6 +1,5 @@
 # Étape 1 : Partir de la base n8n officielle (basée sur Alpine Linux)
-FROM docker.n8n.io/n8nio/n8n:1.97.1
-
+FROM docker.n8n.io/n8nio/n8n:1.106.3
 # Étape 2 : Mettre le costume d'admin pour pouvoir installer des choses
 USER root
 
