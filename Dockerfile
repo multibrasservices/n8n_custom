@@ -1,10 +1,11 @@
-# Ta version spécifique de n8n
-FROM n8nio/n8n:2.1.1
+# On part d'une image Node officielle (elle a forcément npm et apt-get)
+FROM node:20-bullseye
 
-USER root
+# Installation de n8n en version 2.1.1 et du CLI Claude
+RUN npm install -g n8n@2.1.1 @anthropic-ai/claude-cli
 
-# Installation de Node, npm et Claude CLI sur la base Alpine
-RUN apk update && apk add --no-cache nodejs npm \
-    && npm install -g @anthropic-ai/claude-cli
+# n8n utilise le port 5678 par défaut
+EXPOSE 5678
 
-USER node
+# On lance n8n
+CMD ["n8n", "start"]
