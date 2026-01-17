@@ -1,9 +1,9 @@
-# On force l'utilisation de la version basée sur Debian pour avoir accès à apt-get
-FROM docker.n8n.io/n8nio/n8n:2.1.1-debian
+# On garde TA version 2.1.1 mais sur une base Debian pour avoir apt-get
+FROM n8nio/n8n:2.1.1
 
 USER root
 
-# Maintenant apt-get va fonctionner
+# Installation des outils nécessaires
 RUN apt-get update && apt-get install -y \
     curl \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     && npm install -g @anthropic-ai/claude-cli \
     && rm -rf /var/lib/apt/lists/*
 
-# Création des répertoires pour les sessions Claude
+# Création des dossiers pour tes deux comptes Claude
 RUN mkdir -p /home/node/claude_compte_1 /home/node/claude_compte_2 && \
     chown -R node:node /home/node/claude_compte_1 /home/node/claude_compte_2
 
