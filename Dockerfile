@@ -1,27 +1,9 @@
-# Image Playwright (basée sur Ubuntu avec Chromium pré-installé)
-FROM mcr.microsoft.com/playwright:v1.52.0-noble
-
-# Installation de Node.js 20 et n8n
-RUN apt-get update && apt-get install -y curl && \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g n8n@2.1.1 puppeteer-core && \
-    rm -rf /var/lib/apt/lists/*
-
-# Variables d'environnement pour Puppeteer
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
-    PUPPETEER_EXECUTABLE_PATH=/ms-playwright/chromium-1173/chrome-linux/chrome
-
-# Création du dossier pour les sessions Chrome
-RUN mkdir -p /root/.claude-browser/session
-
-# Dossier de travail n8n
-RUN mkdir -p /root/.n8n
-
-WORKDIR /root
-
-# Exposer le port n8n
-EXPOSE 5678
-
-# Lancer n8n
-CMD ["n8n", "start"]
+# On part de l'image qui fonctionne
+FROM docker.n8n.io/n8nio/n8n:2.1.1
+USER root
+# Installation du CLI Claude
+RUN npm install -g @anthropic-ai/claude-code
+# Création des dossiers de session et réglage des permissions
+RUN mkdir -p /home/node/.claude/compte1 /home/node/.claude/compte2 && \
+    chown -R node:node /home/node/.claude
+USER node
