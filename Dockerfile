@@ -1,5 +1,5 @@
-# Image n8n avec Puppeteer pour automatiser claude.ai
-FROM docker.n8n.io/n8nio/n8n:2.1.1
+# Image n8n basée sur Debian avec Puppeteer
+FROM n8nio/n8n:2.1.1-debian
 
 USER root
 
