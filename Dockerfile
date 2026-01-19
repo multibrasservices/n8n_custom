@@ -12,19 +12,13 @@ RUN apt-get update && apt-get install -y curl && \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
     PUPPETEER_EXECUTABLE_PATH=/ms-playwright/chromium-1173/chrome-linux/chrome
 
-# Créer l'utilisateur node
-RUN useradd -m -s /bin/bash node
-
 # Création du dossier pour les sessions Chrome
-RUN mkdir -p /home/node/.claude-browser/session \
-    && chown -R node:node /home/node/.claude-browser \
-    && chown -R node:node /home/node
+RUN mkdir -p /root/.claude-browser/session
 
 # Dossier de travail n8n
-RUN mkdir -p /home/node/.n8n && chown -R node:node /home/node/.n8n
+RUN mkdir -p /root/.n8n
 
-USER node
-WORKDIR /home/node
+WORKDIR /root
 
 # Exposer le port n8n
 EXPOSE 5678
